@@ -22,7 +22,7 @@ module.exports = {
     hardhat: {
     },
     goerli: {
-      url: "https://eth-goerli.alchemyapi.io/v2/27T3vhA0TO3m8d5BmuaQZZ4QylbTOnMu"
+      url: "https://eth-goerli.alchemyapi.io/v2/?"
     },
     ganache: {
       url: "HTTP://127.0.0.1:7545"
