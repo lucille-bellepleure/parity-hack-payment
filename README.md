@@ -1,6 +1,7 @@
-# Basic Sample Hardhat Project
+# Parity Hack Payment Splitter
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+This repo holds the deploy and test scripts for a payment splitter. This is a joint effort between the projects that were victim of the Parity multisig attack. 
+
 
 Try running some of the following tasks:
 
