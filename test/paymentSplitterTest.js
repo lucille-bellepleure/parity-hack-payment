@@ -1,5 +1,6 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
+const { expectRevert } = require('@openzeppelin/test-helpers');
 
 let provider;
 
@@ -53,15 +54,23 @@ describe("PaymentSplitter", function () {
     });
 
     it("Hacker sends 500 eth to paymentSplitter", async function () {
-        const tx = await hacker.sendTransaction({
-            from: hacker.address,
-            to: paymentSplitter.address,
-            value: ethers.utils.parseEther("500"),
-        });
 
+        // await expect(await hacker.sendTransaction({
+        //     to: paymentSplitter.address,
+        //     value: ethers.utils.parseEther("500"),
+        // })).to.changeEtherBalance(paymentSplitter.address, ethers.utils.parseEther("500"))
+        const tx = await hacker.sendTransaction({
+            to: paymentSplitter.address,
+            value: ethers.utils.parseEther("1000"),
+        })
+
+        console.log(tx.gasLimit.toString())
+        console.log(tx.gasPrice.toString())
         txCost = tx.gasLimit.mul(tx.gasPrice)
 
         expect(tx.to.exist)
+
+        //expect(tx).to.changeEtherBalance(paymentSplitter.address, ethers.utils.parseEther("500"))
     });
 
     it("Hacker balance is correct", async function () {
@@ -77,7 +86,7 @@ describe("PaymentSplitter", function () {
     });
 
     it("Swarm.city balance is correct", async function () {
-        expect((await swarmcity.getBalance()).toString()).to.equal("10143935470423257334573")// 10143935470423257334573
+        expect((await swarmcity.getBalance()).toString()).to.equal("10143935470423257334573")
     });
 
     it("Aeternity requests payout", async function () {
@@ -86,7 +95,7 @@ describe("PaymentSplitter", function () {
     });
 
     it("Aeternity balance is correct", async function () {
-        expect((await aeternity.getBalance()).toString()).to.equal("10268523045737810969220")// 10143935470423257334573
+        expect((await aeternity.getBalance()).toString()).to.equal("10268523045737810969220")
     });
 
     it("Edgeless requests payout", async function () {
@@ -95,14 +104,12 @@ describe("PaymentSplitter", function () {
     });
 
     it("Edgeless balance is correct", async function () {
-        expect((await edgeless.getBalance()).toString()).to.equal("10087541148629464728394")// 10143935470423257334573
+        expect((await edgeless.getBalance()).toString()).to.equal("10087541148629464728394")
     });
 
-    // it("PaymentSplitter balance is correct", async function () {
-    //     expect((await provider.getBalance(paymentSplitter.address)).toString()).to.equal("1022701630000000001")// 10143935470423257334573
-    // });
-
-
-
+    it("PaymentSplitter balance is correct", async function () {
+        console.log((await provider.getBalance(paymentSplitter.address)).toString())
+        expect((await provider.getBalance(paymentSplitter.address)).toString()).to.equal("1022701630000000001")
+    });
 
 });
