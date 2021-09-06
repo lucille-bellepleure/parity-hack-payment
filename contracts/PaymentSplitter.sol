@@ -8,7 +8,7 @@ contract _PaymentSplitter is PaymentSplitter {
         0x12B1b58d7f28f116D505ECC48C436D4381793bd5,
         0x73A89F5E8fe75c873e85664eb3C1Ba69082C0890
     ];
-    uint256[] shares_ = [2879, 1751, 2879];
+    uint256[] shares_ = [2879, 1751, 5370];
 
     constructor() PaymentSplitter(payees, shares_) {}
 }

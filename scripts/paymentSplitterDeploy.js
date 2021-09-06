@@ -6,7 +6,6 @@ async function main() {
   console.log("Deploying contracts with the account:", deployer.address);
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-
   const PaymentSplitter = await ethers.getContractFactory("_PaymentSplitter");
   const paymentSplitter = await PaymentSplitter.deploy();
   await paymentSplitter.deployed();
