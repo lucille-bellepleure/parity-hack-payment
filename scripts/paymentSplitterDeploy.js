@@ -2,25 +2,28 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-  const [deployer, account1, account2, account3] = await ethers.getSigners();
+  const deployer = await ethers.getSigners();
   console.log("Deploying contracts with the account:", deployer.address);
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-  const payees = [account1.address, account2.address, account3.address]
-  const swarmcityShare = 2879
-  const aeternityShare = 5371
-  const edgelessShare = 1751
-  const shares = [swarmcityShare, aeternityShare, edgelessShare]
-  const PaymentSplitter = await ethers.getContractFactory("PaymentSplitter");
-  const paymentSplitter = await PaymentSplitter.deploy(payees, shares);
+
+  const PaymentSplitter = await ethers.getContractFactory("_PaymentSplitter");
+  const paymentSplitter = await PaymentSplitter.deploy();
   await paymentSplitter.deployed();
+
   console.log("PaymentSplitter deployed to:", paymentSplitter.address);
-  console.log("Payee 0:", (await paymentSplitter.payee(0)).toString())
-  console.log("Payee 1:", (await paymentSplitter.payee(1)).toString())
-  console.log("Payee 2:", (await paymentSplitter.payee(2)).toString())
-  console.log("Shares 0:", (await paymentSplitter.shares(account1.address)).toString())
-  console.log("Shares 1:", (await paymentSplitter.shares(account2.address)).toString())
-  console.log("Shares 2:", (await paymentSplitter.shares(account3.address)).toString())
+
+  let payee0 = (await paymentSplitter.payee(0)).toString()
+  let payee1 = (await paymentSplitter.payee(1)).toString()
+  let payee2 = (await paymentSplitter.payee(2)).toString()
+
+  console.log("Payee 0:", (payee0))
+  console.log("Payee 1:", (payee1))
+  console.log("Payee 2:", (payee2))
+
+  console.log("Shares 0:", (await paymentSplitter.shares(payee0)).toString())
+  console.log("Shares 1:", (await paymentSplitter.shares(payee1)).toString())
+  console.log("Shares 2:", (await paymentSplitter.shares(payee2)).toString())
   console.log("TotalShares:", (await paymentSplitter.totalShares()).toString())
 }
 
