@@ -1,4 +1,9 @@
 require("@nomiclabs/hardhat-waffle");
+require('dotenv').config();
+
+const { MNEMONIC } = process.env;
+
+
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
@@ -17,12 +22,15 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  defaultNetwork: "rinkeby",
+  defaultNetwork: "hardhat",
   networks: {
     hardhat: {
     },
     goerli: {
-      url: "https://eth-goerli.alchemyapi.io/v2/?"
+      url: "https://eth-goerli.alchemyapi.io/v2/27T3vhA0TO3m8d5BmuaQZZ4QylbTOnMu",
+      accounts: {
+        mnemonic: MNEMONIC
+      }
     },
     ganache: {
       url: "HTTP://127.0.0.1:7545"
