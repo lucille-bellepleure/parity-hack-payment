@@ -1,7 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 require('dotenv').config();
 
-const { MNEMONIC } = process.env;
+const { MNEMONIC, PROD_MNEMONIC } = process.env;
 
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -32,9 +32,15 @@ module.exports = {
         mnemonic: MNEMONIC
       }
     },
+    mainnet: {
+      url: "https://eth-mainnet.alchemyapi.io/v2/P-zhIazK1lPyMPSHkkbWgYjHwXtil5ft",
+      accounts: {
+        mnemonic: PROD_MNEMONIC
+      }
+    },
     ganache: {
       url: "HTTP://127.0.0.1:7545"
-    }
+    },
   },
   solidity: "0.8.4",
   paths: {
